@@ -2,7 +2,7 @@
 
 *.csv
 
-/*.zip
+*.zip
 
 # Jupyter files
 *.ipynb_checkpoints/
