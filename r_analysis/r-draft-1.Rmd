@@ -1,0 +1,80 @@
+---
+title: "r-draft-1"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+rm(list = ls(all.names = TRUE))
+```
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(knitr)
+library(tidyr)
+```
+
+# Import dataset 1
+
+device_info.csv (~66k records)
+* Fields: id, date, user, pc, activity (connect/disconnect)
+* Some users use a portable zip drive
+* Some connect(s) may be missing disconnect(s), since machine may be turned off without a proper disconnect. 
+
+HTTP_info.csv (~3.5M records)
+* Fields: id, date, user, pc, url
+* Up to 15 URLs visited daily between daily logon and daily logoff
+* Up to 5 URLs visited daily after-hours
+
+logon_info.csv (~850k records)
+* Fields: id, date, user, pc, activity (Logon/Logoff)
+* Logoff requires preceding logon
+* Each user has an assigned machine, but can share others
+* 100 machines shared (physically shared) by some of the users in addition to their assigned PC. 
+* Some logons occur after-hours 
+*Note: Screen unlocks are recorded as logons. Screen locks are not recorded.
+* 12 of the users are IT administrators
+
+Employees_info Folder
+* 18 Employee files (~1k records each file)
+  - Fields: employee_name, user_id, email, domain, role
+  - Record of who is employed at the end of the month 
+
+Additional Note:
+Field ids are unique within a .csv file but are not necessarily unique across all files.
+
+```{r}
+# device info
+d1_device <- read.csv("dataset1/device_info.csv")
+
+# http info
+d1_http <- read.csv("dataset1/http_info.csv")
+
+# logon info
+d1_logon <- read.csv("dataset1/logon_info.csv")
+```
+
+```{r}
+# employee info (year, month)
+e1.09.12 <- read.csv("dataset1/Employees_info/2009-12.csv")
+e1.10.01 <- read.csv("dataset1/Employees_info/2010-Jan.csv")
+e1.10.02 <- read.csv("dataset1/Employees_info/2010-Feb.csv")
+e1.10.03 <- read.csv("dataset1/Employees_info/2010-Mar.csv")
+e1.10.04 <- read.csv("dataset1/Employees_info/2010-Apr.csv")
+e1.10.05 <- read.csv("dataset1/Employees_info/2010-May.csv")
+e1.10.06 <- read.csv("dataset1/Employees_info/2010-Jun.csv")
+e1.10.07 <- read.csv("dataset1/Employees_info/2010-Jul.csv")
+e1.10.08 <- read.csv("dataset1/Employees_info/2010-Aug.csv")
+e1.10.09 <- read.csv("dataset1/Employees_info/2010-Sep.csv")
+e1.10.10 <- read.csv("dataset1/Employees_info/2010-Oct.csv")
+e1.10.11 <- read.csv("dataset1/Employees_info/2010-Nov.csv")
+e1.10.12 <- read.csv("dataset1/Employees_info/2010-Dec.csv")
+e1.11.01 <- read.csv("dataset1/Employees_info/2011-Jan.csv")
+e1.11.02 <- read.csv("dataset1/Employees_info/2011-Feb.csv")
+e1.11.03 <- read.csv("dataset1/Employees_info/2011-Mar.csv")
+e1.11.04 <- read.csv("dataset1/Employees_info/2011-Apr.csv")
+e1.11.05 <- read.csv("dataset1/Employees_info/2011-May.csv")
+
+```
+
