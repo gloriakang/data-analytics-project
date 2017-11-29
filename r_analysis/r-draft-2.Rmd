@@ -15,26 +15,96 @@ library(knitr)
 library(tidyr)
 ```
 
+
 # Import dataset 2
 
 Comments:
 * Employees interests can change over time.
 * Scenarios are plentiful in this dataset, so finding 1 interesting “thing” would be the absolute minimum.
 
+```{r}
+# device info
+d2_device <- read.csv("dataset2/device_info.csv")
+# email info
+d2_email <- read.csv("dataset2/email_info.csv")
+# file info
+d2_file <- read.csv("dataset2/file_info.csv")
+# http info
+d2_http <- read.csv("dataset2/http_info.csv")
+# logon info
+d2_logon <- read.csv("dataset2/logon_info.csv")
+# psychometric info
+d2_psychometric <- read.csv("dataset2/psychometric_info.csv")
+```
 
 
-file.csv
+
+## device.csv (~405k records)
+* Fields: id, date, user, pc, activity (connect/disconnect)
+* Some users use a portable zip drive
+* Some connect(s) may be missing disconnect(s), since machine may be turned off without a proper disconnect. 
+
+```{r}
+# device info
+head(d2_device)
+
+dim(d2_device)
+
+str(d2_device)
+
+# check for missing values
+table(is.na(d2_device))
+
+summary(d2_device)
+
+
+
+```
+
+
+
+## email.csv (~2.6M records)
+* VERY IMPORTANT
+* Fields: id, date, user, pc, to, cc, bcc, from, size, attachment_count, content
+* Per usual, emails can have multiple recipients
+* Emails can be sent to non-employees. The company name is randomly initialized DTAA (there isn’t any significance here), and can be used to identify other employees.
+* Email size is in bytes, not including any possible attachments.
+* Emails have carbon copy info.
+* Per usual - content and subjects may not match 
+
+```{r}
+head(d2_email)
+
+```
+
+
+
+## file.csv (~445k records)
 Fields: id, date, user, pc, filename, content
 * Each item represents an item copied to a thumb-drive
 * Files are summarized by keywords of the “content”
 
-http.csv
+```{r}
+head(d2_file)
+
+```
+
+
+
+## http.csv (~ records)
 * Fields: id, date, user, pc, url, content
 * content has a set of key words which relate to the site.
 * Per-usual, webpages can have multiple topics
 * Websites have been randomly generated, some may be real sites, others not. Exercise care when visiting websites. 
 
-logon.csv
+```{r}
+head(d2_http)
+
+```
+
+
+
+## logon.csv (~ records)
 * Fields: id, date, user, pc, activity (Logon/Logoff)
 * some logons have been removed from the dataset, to mimic a “messy” scenario
 * Each user has an assigned machine, but can share others
@@ -42,138 +112,35 @@ logon.csv
 * Some logons occur after-hours 
 *Note: Screen unlocks are recorded as logons. Screen locks are not recorded.
 
-psychometric.csv
+```{r}
+head(d2_logon)
+
+```
+
+
+
+## psychometric.csv (~ records)
 * Fields: employee_name, user_id, O, C, E, A, N
 * Big 5 psychometric score
 * OCEAN describes the Big-5 personality traits. You’ll want to examine extraneous materials to understand the significance of each personality type.
 
-
-
-
-
-
-device.csv
-* Fields: id, date, user, pc, activity (connect/disconnect)
-* Some users use a portable zip drive
-* Some connect(s) may be missing disconnect(s), since machine may be turned off without a proper disconnect. 
-
 ```{r}
-# device info
-#d2_device
+head(d2_psychometric)
 
 ```
 
-email.csv
-* Fields: id, date, user, pc, to, cc, bcc, from, size, attachment_count, content
-* Per usual,emails can have multiple recipients
-* Emails can be sent to non-employees. The company name is randomly initialized DTAA (there isn’t any significance here), and can be used to identify other employees.
-* Email size is in bytes, not including any possible attachments.
-* Emails have carbon copy info.
-* Per usual- content and subjects may not match 
-```{r}
-# email info
-#d2_email <- read.csv("dataset2/email_info.csv")
-```
+The Big Five personality traits, or the five factor model (FFM), is a model based on common language descriptors of personality. When factor analysis is applied to personality survey data, some words used to describe personality are often applied to the same person. E.g., someone described as "conscientious" is likely to also be "always prepared" rather than "messy." This theory uses descriptors of common language and suggests five broad dimensions commonly used to describe the human personality and psyche: Openness to experience, Conscientiousness, Extraversion, Agreeableness, and Neuroticism.
 
 
 
-# file info
-#d2_file <- read.csv("dataset2/file_info.csv")
 
-# http info
-#d2_http <- read.csv("dataset2/http_info.csv")
-
-# logon info
-#d2_logon <- read.csv("dataset2/logon_info.csv")
-
-# psychometric info
-#d2_psychometric <- read.csv("dataset2/psychometric_info.csv")
-
-
+## LDAP
+* 18 Employee files (~1k records each file)
+  - Fields: employee_name, user_id, email, domain, role
+  - Record of who is employed at the end of the month 
 
 ```{r}
-# device info
-d2_device <- read.csv("dataset2/device_info.csv")
-
-# email info
-d2_email <- read.csv("dataset2/email_info.csv")
-
-# file info
-d2_file <- read.csv("dataset2/file_info.csv")
-
-# http info
-d2_http <- read.csv("dataset2/http_info.csv")
-
-# logon info
-d2_logon <- read.csv("dataset2/logon_info.csv")
-
-# psychometric info
-d2_psychometric <- read.csv("dataset2/psychometric_info.csv")
-
-```
-
-
-
-
-
-
-
-
-```{r}
-# device info
-d2_device <- read.csv("dataset2/device_info.csv")
-```
-
-
-```{r}
-# email info
-d2_email <- read.csv("dataset2/email_info.csv")
-```
-
-```{r}
-# file info
-d2_file <- read.csv("dataset2/file_info.csv")
-
-# http info
-d2_http <- read.csv("dataset2/http_info.csv")
-
-# logon info
-d2_logon <- read.csv("dataset2/logon_info.csv")
-
-# psychometric info
-d2_psychometric <- read.csv("dataset2/psychometric_info.csv")
-
-```
-
-
-```{r}
-# device info
-d2_device <- read.csv("dataset2/device_info.csv")
-
-# email info
-d2_email <- read.csv("dataset2/email_info.csv")
-
-# file info
-d2_file <- read.csv("dataset2/file_info.csv")
-
-# http info
-d2_http <- read.csv("dataset2/http_info.csv")
-
-# logon info
-d2_logon <- read.csv("dataset2/logon_info.csv")
-
-# psychometric info
-d2_psychometric <- read.csv("dataset2/psychometric_info.csv")
-
-```
-
-
-
-
-
-```{r}
-# employee info
-
+# employee info (year, month)
 e2.09.12 <- read.csv("dataset2/LDAP/2009-12.csv")
 e2.10.01 <- read.csv("dataset2/LDAP/2010-01.csv")
 e2.10.02 <- read.csv("dataset2/LDAP/2010-02.csv")
@@ -193,4 +160,7 @@ e2.11.03 <- read.csv("dataset2/LDAP/2011-03.csv")
 e2.11.04 <- read.csv("dataset2/LDAP/2011-04.csv")
 e2.11.05 <- read.csv("dataset2/LDAP/2011-05.csv")
 ```
+
+
+
 
