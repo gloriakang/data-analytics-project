@@ -21,18 +21,7 @@ Comments:
 * Employees interests can change over time.
 * Scenarios are plentiful in this dataset, so finding 1 interesting “thing” would be the absolute minimum.
 
-device.csv
-* Fields: id, date, user, pc, activity (connect/disconnect)
-* Some users use a portable zip drive
-* Some connect(s) may be missing disconnect(s), since machine may be turned off without a proper disconnect. 
 
-email.csv
-* Fields: id, date, user, pc, to, cc, bcc, from, size, attachment_count, content
-* Per usual,emails can have multiple recipients
-* Emails can be sent to non-employees. The company name is randomly initialized DTAA (there isn’t any significance here), and can be used to identify other employees.
-* Email size is in bytes, not including any possible attachments.
-* Emails have carbon copy info.
-* Per usual- content and subjects may not match 
 
 file.csv
 Fields: id, date, user, pc, filename, content
@@ -58,6 +47,50 @@ psychometric.csv
 * Big 5 psychometric score
 * OCEAN describes the Big-5 personality traits. You’ll want to examine extraneous materials to understand the significance of each personality type.
 
+
+
+
+
+
+device.csv
+* Fields: id, date, user, pc, activity (connect/disconnect)
+* Some users use a portable zip drive
+* Some connect(s) may be missing disconnect(s), since machine may be turned off without a proper disconnect. 
+
+```{r}
+# device info
+#d2_device
+
+```
+
+email.csv
+* Fields: id, date, user, pc, to, cc, bcc, from, size, attachment_count, content
+* Per usual,emails can have multiple recipients
+* Emails can be sent to non-employees. The company name is randomly initialized DTAA (there isn’t any significance here), and can be used to identify other employees.
+* Email size is in bytes, not including any possible attachments.
+* Emails have carbon copy info.
+* Per usual- content and subjects may not match 
+```{r}
+# email info
+#d2_email <- read.csv("dataset2/email_info.csv")
+```
+
+
+
+# file info
+#d2_file <- read.csv("dataset2/file_info.csv")
+
+# http info
+#d2_http <- read.csv("dataset2/http_info.csv")
+
+# logon info
+#d2_logon <- read.csv("dataset2/logon_info.csv")
+
+# psychometric info
+#d2_psychometric <- read.csv("dataset2/psychometric_info.csv")
+
+
+
 ```{r}
 # device info
 d2_device <- read.csv("dataset2/device_info.csv")
@@ -78,6 +111,65 @@ d2_logon <- read.csv("dataset2/logon_info.csv")
 d2_psychometric <- read.csv("dataset2/psychometric_info.csv")
 
 ```
+
+
+
+
+
+
+
+
+```{r}
+# device info
+d2_device <- read.csv("dataset2/device_info.csv")
+```
+
+
+```{r}
+# email info
+d2_email <- read.csv("dataset2/email_info.csv")
+```
+
+```{r}
+# file info
+d2_file <- read.csv("dataset2/file_info.csv")
+
+# http info
+d2_http <- read.csv("dataset2/http_info.csv")
+
+# logon info
+d2_logon <- read.csv("dataset2/logon_info.csv")
+
+# psychometric info
+d2_psychometric <- read.csv("dataset2/psychometric_info.csv")
+
+```
+
+
+```{r}
+# device info
+d2_device <- read.csv("dataset2/device_info.csv")
+
+# email info
+d2_email <- read.csv("dataset2/email_info.csv")
+
+# file info
+d2_file <- read.csv("dataset2/file_info.csv")
+
+# http info
+d2_http <- read.csv("dataset2/http_info.csv")
+
+# logon info
+d2_logon <- read.csv("dataset2/logon_info.csv")
+
+# psychometric info
+d2_psychometric <- read.csv("dataset2/psychometric_info.csv")
+
+```
+
+
+
+
 
 ```{r}
 # employee info
