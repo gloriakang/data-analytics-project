@@ -1,6 +1,8 @@
 ---
 title: "r-draft-2"
-output: html_document
+output: 
+  html_document: 
+    keep_md: yes
 ---
 
 ```{r setup, include=FALSE}
@@ -12,6 +14,7 @@ rm(list = ls(all.names = TRUE))
 library(dplyr)
 library(ggplot2)
 library(knitr)
+library(rmarkdown)
 library(tidyr)
 ```
 
@@ -29,22 +32,32 @@ Comments:
 
 ```{r}
 # device info (27.6 MB)
-d2_device <- read.csv("dataset2/device_info.csv")
+d2_device <- read.csv("~/git/data-analytics-project/dataset2/device_info.csv")
+```
 
+```{r}
 # email info (1.3 GB)
-d2_email <- read.csv("dataset2/email_info.csv")
+d2_email <- read.csv("~/git/data-analytics-project/dataset2/email_info.csv")
+```
 
+```{r}
 # file info (184 MB)
-d2_file <- read.csv("dataset2/file_info.csv")
+d2_file <- read.csv("~/git/data-analytics-project/dataset2/file_info.csv")
+```
 
+```{r}
 # http info (13.5 GB)
 #d2_http <- read.csv("dataset2/http_info.csv")
+```
 
+```{r}
 # logon info (55.8 MB)
-d2_logon <- read.csv("dataset2/logon_info.csv")
+d2_logon <- read.csv("~/git/data-analytics-project/dataset2/logon_info.csv")
+```
 
+```{r}
 # psychometric info (43.6 KB)
-d2_psychometric <- read.csv("dataset2/psychometric_info.csv")
+d2_psychometric <- read.csv("~/git/data-analytics-project/dataset2/psychometric_info.csv")
 ```
 
 
@@ -174,44 +187,5 @@ summary(d2_psychometric)
 ```
 
 The Big Five personality traits, or the five factor model (FFM), is a model based on common language descriptors of personality. When factor analysis is applied to personality survey data, some words used to describe personality are often applied to the same person. E.g., someone described as "conscientious" is likely to also be "always prepared" rather than "messy." This theory uses descriptors of common language and suggests five broad dimensions commonly used to describe the human personality and psyche: Openness to experience, Conscientiousness, Extraversion, Agreeableness, and Neuroticism.
-
-
-
-
-## LDAP
-* 18 Employee files (~1k records each file)
-  - Fields: employee_name, user_id, email, domain, role
-  - Record of who is employed at the end of the month 
-
-```{r}
-# employee info (e2.year.month)
-e2.09.12 <- read.csv("dataset2/LDAP/2009-12.csv")
-e2.10.01 <- read.csv("dataset2/LDAP/2010-01.csv")
-e2.10.02 <- read.csv("dataset2/LDAP/2010-02.csv")
-e2.10.03 <- read.csv("dataset2/LDAP/2010-03.csv")
-e2.10.04 <- read.csv("dataset2/LDAP/2010-04.csv")
-e2.10.05 <- read.csv("dataset2/LDAP/2010-05.csv")
-e2.10.06 <- read.csv("dataset2/LDAP/2010-06.csv")
-e2.10.07 <- read.csv("dataset2/LDAP/2010-07.csv")
-e2.10.08 <- read.csv("dataset2/LDAP/2010-08.csv")
-e2.10.09 <- read.csv("dataset2/LDAP/2010-09.csv")
-e2.10.10 <- read.csv("dataset2/LDAP/2010-10.csv")
-e2.10.11 <- read.csv("dataset2/LDAP/2010-11.csv")
-e2.10.12 <- read.csv("dataset2/LDAP/2010-12.csv")
-e2.11.01 <- read.csv("dataset2/LDAP/2011-01.csv")
-e2.11.02 <- read.csv("dataset2/LDAP/2011-02.csv")
-e2.11.03 <- read.csv("dataset2/LDAP/2011-03.csv")
-e2.11.04 <- read.csv("dataset2/LDAP/2011-04.csv")
-e2.11.05 <- read.csv("dataset2/LDAP/2011-05.csv")
-```
-
-Dates: December 2009 - May 2011
-
-
-```{r}
-
-```
-
-
 
 
