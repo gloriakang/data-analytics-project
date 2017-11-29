@@ -17,25 +17,36 @@ library(tidyr)
 
 
 # Import dataset 2
+  - device info
+  - email info
+  - file info
+  - logon info
+  - psychometric info
 
 Comments:
 * Employees interests can change over time.
 * Scenarios are plentiful in this dataset, so finding 1 interesting “thing” would be the absolute minimum.
 
 ```{r}
-# device info
+# device info (27.6 MB)
 d2_device <- read.csv("dataset2/device_info.csv")
-# email info
+
+# email info (1.3 GB)
 d2_email <- read.csv("dataset2/email_info.csv")
-# file info
+
+# file info (184 MB)
 d2_file <- read.csv("dataset2/file_info.csv")
-# http info
-d2_http <- read.csv("dataset2/http_info.csv")
-# logon info
+
+# http info (13.5 GB)
+#d2_http <- read.csv("dataset2/http_info.csv")
+
+# logon info (55.8 MB)
 d2_logon <- read.csv("dataset2/logon_info.csv")
-# psychometric info
+
+# psychometric info (43.6 KB)
 d2_psychometric <- read.csv("dataset2/psychometric_info.csv")
 ```
+
 
 
 
@@ -57,8 +68,6 @@ table(is.na(d2_device))
 
 summary(d2_device)
 
-
-
 ```
 
 
@@ -73,7 +82,16 @@ summary(d2_device)
 * Per usual - content and subjects may not match 
 
 ```{r}
+# email info
 head(d2_email)
+
+dim(d2_email)
+
+str(d2_email)
+
+table(is.na(d2_email))
+
+summary(d2_email)
 
 ```
 
@@ -85,7 +103,16 @@ Fields: id, date, user, pc, filename, content
 * Files are summarized by keywords of the “content”
 
 ```{r}
+# file info
 head(d2_file)
+
+dim(d2_file)
+
+str(d2_file)
+
+table(is.na(d2_file))
+
+summary(d2_file)
 
 ```
 
@@ -98,8 +125,7 @@ head(d2_file)
 * Websites have been randomly generated, some may be real sites, others not. Exercise care when visiting websites. 
 
 ```{r}
-head(d2_http)
-
+# http info
 ```
 
 
@@ -113,7 +139,16 @@ head(d2_http)
 *Note: Screen unlocks are recorded as logons. Screen locks are not recorded.
 
 ```{r}
+# logon info
 head(d2_logon)
+
+dim(d2_logon)
+
+str(d2_logon)
+
+table(is.na(d2_logon))
+
+summary(d2_logon)
 
 ```
 
@@ -125,7 +160,16 @@ head(d2_logon)
 * OCEAN describes the Big-5 personality traits. You’ll want to examine extraneous materials to understand the significance of each personality type.
 
 ```{r}
+# psychometric info
 head(d2_psychometric)
+
+dim(d2_psychometric)
+
+str(d2_psychometric)
+
+table(is.na(d2_psychometric))
+
+summary(d2_psychometric)
 
 ```
 
@@ -140,7 +184,7 @@ The Big Five personality traits, or the five factor model (FFM), is a model base
   - Record of who is employed at the end of the month 
 
 ```{r}
-# employee info (year, month)
+# employee info (e2.year.month)
 e2.09.12 <- read.csv("dataset2/LDAP/2009-12.csv")
 e2.10.01 <- read.csv("dataset2/LDAP/2010-01.csv")
 e2.10.02 <- read.csv("dataset2/LDAP/2010-02.csv")
@@ -159,6 +203,13 @@ e2.11.02 <- read.csv("dataset2/LDAP/2011-02.csv")
 e2.11.03 <- read.csv("dataset2/LDAP/2011-03.csv")
 e2.11.04 <- read.csv("dataset2/LDAP/2011-04.csv")
 e2.11.05 <- read.csv("dataset2/LDAP/2011-05.csv")
+```
+
+Dates: December 2009 - May 2011
+
+
+```{r}
+
 ```
 
 
