@@ -5,11 +5,12 @@ output:
     fig_height: 3
     fig_width: 5
     keep_md: yes
-    theme: cerulean
+    theme: cosmo
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE, size = "small")
+knitr::opts_knit$set(root.dir = "../")
 #rm(list = ls(all.names = TRUE))
 ```
 
@@ -21,11 +22,11 @@ library(rmarkdown)
 library(tidyr)
 ```
 
-
 # Import dataset 2
   - device info
   - email info
   - file info
+  - http info
   - logon info
   - psychometric info
 
@@ -35,34 +36,33 @@ Comments:
 
 ```{r}
 # device info (27.6 MB)
-d2_device <- read.csv("~/git/data-analytics-project/dataset2/device_info.csv")
+device <- read.csv("dataset2/device_info.csv")
 ```
 
 ```{r}
 # email info (1.3 GB)
-d2_email <- read.csv("~/git/data-analytics-project/dataset2/email_info.csv")
+#email <- read.csv("dataset2/email_info.csv")
 ```
 
 ```{r}
 # file info (184 MB)
-d2_file <- read.csv("~/git/data-analytics-project/dataset2/file_info.csv")
+file <- read.csv("dataset2/file_info.csv")
 ```
 
 ```{r}
 # http info (13.5 GB)
-#d2_http <- read.csv("dataset2/http_info.csv")
+#http <- read.csv("dataset2/http_info.csv")
 ```
 
 ```{r}
 # logon info (55.8 MB)
-d2_logon <- read.csv("~/git/data-analytics-project/dataset2/logon_info.csv")
+logon <- read.csv("dataset2/logon_info.csv")
 ```
 
 ```{r}
 # psychometric info (43.6 KB)
-d2_psychometric <- read.csv("~/git/data-analytics-project/dataset2/psychometric_info.csv")
+psychometric <- read.csv("dataset2/psychometric_info.csv")
 ```
-
 
 
 
@@ -73,16 +73,16 @@ d2_psychometric <- read.csv("~/git/data-analytics-project/dataset2/psychometric_
 
 ```{r}
 # device info
-head(d2_device)
+head(device)
 
-dim(d2_device)
+dim(device)
 
-str(d2_device)
+str(device)
 
 # check for missing values
-table(is.na(d2_device))
+table(is.na(device))
 
-summary(d2_device)
+summary(device)
 
 ```
 
@@ -98,17 +98,16 @@ summary(d2_device)
 * Per usual - content and subjects may not match 
 
 ```{r}
-# email info
-head(d2_email)
-
-dim(d2_email)
-
-str(d2_email)
-
-table(is.na(d2_email))
-
-summary(d2_email)
-
+# # email info
+# head(email)
+# 
+# dim(email)
+# 
+# str(email)
+# 
+# table(is.na(email))
+# 
+# summary(email)
 ```
 
 
@@ -120,15 +119,15 @@ Fields: id, date, user, pc, filename, content
 
 ```{r}
 # file info
-head(d2_file)
+head(file)
 
-dim(d2_file)
+dim(file)
 
-str(d2_file)
+str(file)
 
-table(is.na(d2_file))
+table(is.na(file))
 
-summary(d2_file)
+summary(file)
 
 ```
 
@@ -156,15 +155,15 @@ summary(d2_file)
 
 ```{r}
 # logon info
-head(d2_logon)
+head(logon)
 
-dim(d2_logon)
+dim(logon)
 
-str(d2_logon)
+str(logon)
 
-table(is.na(d2_logon))
+table(is.na(logon))
 
-summary(d2_logon)
+summary(logon)
 
 ```
 
@@ -177,15 +176,15 @@ summary(d2_logon)
 
 ```{r}
 # psychometric info
-head(d2_psychometric)
+head(psychometric)
 
-dim(d2_psychometric)
+dim(psychometric)
 
-str(d2_psychometric)
+str(psychometric)
 
-table(is.na(d2_psychometric))
+table(is.na(psychometric))
 
-summary(d2_psychometric)
+summary(psychometric)
 
 ```
 

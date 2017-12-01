@@ -1,0 +1,38 @@
+---
+title: "r-draft-http"
+output: 
+  html_document: 
+    fig_height: 3
+    fig_width: 5
+    keep_md: yes
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE, size = "small")
+knitr::opts_knit$set(root.dir = "../")
+#rm(list = ls(all.names = TRUE))
+```
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(knitr)
+library(tidyr)
+```
+
+# Import dataset2
+  - http info
+
+```{r}
+# http info (13.5 GB)
+http <- read.csv("dataset2/http_info.csv")
+
+```
+
+## http.csv (~ records)
+* Fields: id, date, user, pc, url, content
+* content has a set of key words which relate to the site.
+* Per-usual, webpages can have multiple topics
+* Websites have been randomly generated, some may be real sites, others not. Exercise care when visiting websites. 
+

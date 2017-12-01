@@ -1,0 +1,54 @@
+---
+title: "r-draft-email"
+output: 
+  html_document: 
+    fig_height: 3
+    fig_width: 5
+    keep_md: yes
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE, size = "small")
+knitr::opts_knit$set(root.dir = "../")
+#rm(list = ls(all.names = TRUE))
+```
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(knitr)
+library(tidyr)
+```
+
+# Import dataset2
+  - email info
+
+```{r}
+# email info (1.3 GB)
+email <- read.csv("dataset2/email_info.csv")
+```
+
+## email.csv (~2.6M records)
+* VERY IMPORTANT
+* Fields: id, date, user, pc, to, cc, bcc, from, size, attachment_count, content
+* Per usual, emails can have multiple recipients
+* Emails can be sent to non-employees. The company name is randomly initialized DTAA (there isn’t any significance here), and can be used to identify other employees.
+* Email size is in bytes, not including any possible attachments.
+* Emails have carbon copy info.
+* Per usual - content and subjects may not match 
+
+```{r}
+# email info
+head(email)
+
+dim(email)
+
+str(email)
+
+table(is.na(email))
+
+summary(email)
+
+```
+

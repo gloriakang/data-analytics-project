@@ -8,13 +8,10 @@ output:
     theme: cosmo
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, cache = TRUE, size = "small")
-knitr::opts_knit$set(root.dir = "../")
-#rm(list = ls(all.names = TRUE))
-```
 
-```{r}
+
+
+```r
 library(dplyr)
 library(ggplot2)
 library(knitr)
@@ -33,7 +30,8 @@ Comments:
   - Fields: employee_name, user_id, email, domain, role
   - Record of who is employed at the end of the month 
 
-```{r}
+
+```r
 # employee info (year.month)
 
 e2.09.12 <- read.csv("dataset2/LDAP/2009-12.csv")

@@ -1,0 +1,7 @@
+name: Publish Document
+account: rpubs
+server: rpubs.com
+appId: https://api.rpubs.com/api/v1/document/336044/3b1f8e0b402c4b42bba150fe187a6a4f
+bundleId: https://api.rpubs.com/api/v1/document/336044/3b1f8e0b402c4b42bba150fe187a6a4f
+url: http://rpubs.com/gkang/336044
+when: 1512095802.81789
