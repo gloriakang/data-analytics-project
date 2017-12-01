@@ -2,12 +2,15 @@
 title: "r-draft-2"
 output: 
   html_document: 
+    fig_height: 3
+    fig_width: 5
     keep_md: yes
+    theme: cerulean
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
-rm(list = ls(all.names = TRUE))
+#rm(list = ls(all.names = TRUE))
 ```
 
 ```{r}

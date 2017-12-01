@@ -2,5 +2,5 @@ base
 dplyr
 ggplot2
 knitr
-tidyr
 rmarkdown
+tidyr
