@@ -1,0 +1,51 @@
+---
+title: "r-draft-device"
+output: 
+  html_document: 
+    fig_height: 3
+    fig_width: 5
+    keep_md: yes
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE, size = "small")
+knitr::opts_knit$set(root.dir = "../")
+#rm(list = ls(all.names = TRUE))
+```
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(knitr)
+library(tidyr)
+```
+
+# Import dataset2
+  - device info
+
+```{r}
+# device info (27.6 MB)
+device <- read.csv("dataset2/device_info.csv")
+```
+
+## device.csv (~405k records)
+* Fields: id, date, user, pc, activity (connect/disconnect)
+* Some users use a portable zip drive
+* Some connect(s) may be missing disconnect(s), since machine may be turned off without a proper disconnect. 
+
+```{r}
+# device info
+head(device)
+
+dim(device)
+
+str(device)
+
+# check for missing values
+table(is.na(device))
+
+summary(device)
+
+```
+

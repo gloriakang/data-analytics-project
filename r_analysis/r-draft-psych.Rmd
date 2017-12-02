@@ -1,0 +1,52 @@
+---
+title: "r-draft-psych"
+output: 
+  html_document: 
+    fig_height: 3
+    fig_width: 5
+    keep_md: yes
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE, size = "small")
+knitr::opts_knit$set(root.dir = "../")
+#rm(list = ls(all.names = TRUE))
+```
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(knitr)
+library(tidyr)
+```
+
+# Import dataset2
+  - psychometric info
+
+```{r}
+# psychometric info (43.6 KB)
+psychometric <- read.csv("dataset2/psychometric_info.csv")
+```
+
+## psychometric.csv (~ records)
+* Fields: employee_name, user_id, O, C, E, A, N
+* Big 5 psychometric score
+* OCEAN describes the Big-5 personality traits. You’ll want to examine extraneous materials to understand the significance of each personality type.
+
+The Big Five personality traits, or the five factor model (FFM), is a model based on common language descriptors of personality. When factor analysis is applied to personality survey data, some words used to describe personality are often applied to the same person. E.g., someone described as "conscientious" is likely to also be "always prepared" rather than "messy." This theory uses descriptors of common language and suggests five broad dimensions commonly used to describe the human personality and psyche: Openness to experience, Conscientiousness, Extraversion, Agreeableness, and Neuroticism.
+
+```{r}
+# psychometric info
+head(psychometric)
+
+dim(psychometric)
+
+str(psychometric)
+
+# check for missing values
+table(is.na(psychometric))
+
+summary(psychometric)
+
+```

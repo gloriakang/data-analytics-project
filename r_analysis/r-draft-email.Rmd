@@ -46,6 +46,7 @@ dim(email)
 
 str(email)
 
+# check for missing values
 table(is.na(email))
 
 summary(email)

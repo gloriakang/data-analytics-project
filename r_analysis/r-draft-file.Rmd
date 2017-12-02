@@ -1,0 +1,50 @@
+---
+title: "r-draft-file"
+output: 
+  html_document: 
+    fig_height: 3
+    fig_width: 5
+    keep_md: yes
+    theme: cosmo
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE, size = "small")
+knitr::opts_knit$set(root.dir = "../")
+#rm(list = ls(all.names = TRUE))
+```
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(knitr)
+library(tidyr)
+```
+
+# Import dataset2
+  - file info
+
+```{r}
+# file info (184 MB)
+file <- read.csv("dataset2/file_info.csv")
+```
+
+## file.csv (~445k records)
+Fields: id, date, user, pc, filename, content
+* Each item represents an item copied to a thumb-drive
+* Files are summarized by keywords of the “content”
+
+```{r}
+# file info
+head(file)
+
+dim(file)
+
+str(file)
+
+# check for missing values
+table(is.na(file))
+
+summary(file)
+
+```
