@@ -108,6 +108,7 @@ str(email)
 ```
 
 ```r
+# check for missing values
 table(is.na(email))
 ```
 
