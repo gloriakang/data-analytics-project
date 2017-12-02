@@ -13,41 +13,19 @@ output:
 
 ```r
 library(dplyr)
-```
-
-```
-## 
-## Attaching package: 'dplyr'
-```
-
-```
-## The following objects are masked from 'package:stats':
-## 
-##     filter, lag
-```
-
-```
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-```
-
-```r
 library(ggplot2)
 library(knitr)
 library(tidyr)
 ```
 
-# Import dataset2
-  - psychometric info
 
 
 ```r
 # psychometric info (43.6 KB)
-psychometric <- read.csv("dataset2/psychometric_info.csv")
+psychometric <- read.table("dataset2/psychometric_info.csv", header = TRUE, sep = ",", as.is = TRUE)
 ```
 
-## psychometric.csv (~ records)
+## psychometric_info (~ records)
 * Fields: employee_name, user_id, O, C, E, A, N
 * Big 5 psychometric score
 * OCEAN describes the Big-5 personality traits. You’ll want to examine extraneous materials to understand the significance of each personality type.
@@ -84,8 +62,8 @@ str(psychometric)
 
 ```
 ## 'data.frame':	1000 obs. of  7 variables:
-##  $ employee_name: Factor w/ 1000 levels "Aaron Porter Gutierrez",..: 161 208 478 56 677 351 54 791 908 79 ...
-##  $ user_id      : Factor w/ 1000 levels "AAE0190","AAF0535",..: 174 218 492 76 630 374 4 831 900 80 ...
+##  $ employee_name: chr  "Calvin Edan Love" "Christine Reagan Deleon" "Jade Felicia Caldwell" "Aquila Stewart Dejesus" ...
+##  $ user_id      : chr  "CEL0561" "CRD0624" "JFC0557" "ASD0577" ...
 ##  $ O            : int  40 26 22 40 36 21 37 34 44 42 ...
 ##  $ C            : int  39 22 16 48 44 25 14 20 28 25 ...
 ##  $ E            : int  36 17 23 36 23 20 28 47 44 21 ...
@@ -109,20 +87,18 @@ summary(psychometric)
 ```
 
 ```
-##                 employee_name    user_id          O        
-##  Aaron Porter Gutierrez:  1   AAE0190:  1   Min.   :10.00  
-##  Abdul Ralph Deleon    :  1   AAF0535:  1   1st Qu.:23.00  
-##  Abel Adam Morton      :  1   AAF0791:  1   Median :36.00  
-##  Abel Reese Boone      :  1   AAL0706:  1   Mean   :33.17  
-##  Adam Ishmael Mcdaniel :  1   AAM0658:  1   3rd Qu.:42.00  
-##  Adam Kendall Harrell  :  1   AAN0823:  1   Max.   :50.00  
-##  (Other)               :994   (Other):994                  
-##        C               E              A               N        
-##  Min.   :10.00   Min.   :10.0   Min.   :10.00   Min.   :14.00  
-##  1st Qu.:20.00   1st Qu.:19.0   1st Qu.:19.00   1st Qu.:26.00  
-##  Median :33.00   Median :28.0   Median :27.00   Median :29.00  
-##  Mean   :30.65   Mean   :29.2   Mean   :28.82   Mean   :29.61  
-##  3rd Qu.:40.00   3rd Qu.:39.0   3rd Qu.:39.00   3rd Qu.:33.00  
-##  Max.   :50.00   Max.   :50.0   Max.   :50.00   Max.   :49.00  
-## 
+##  employee_name        user_id                O               C        
+##  Length:1000        Length:1000        Min.   :10.00   Min.   :10.00  
+##  Class :character   Class :character   1st Qu.:23.00   1st Qu.:20.00  
+##  Mode  :character   Mode  :character   Median :36.00   Median :33.00  
+##                                        Mean   :33.17   Mean   :30.65  
+##                                        3rd Qu.:42.00   3rd Qu.:40.00  
+##                                        Max.   :50.00   Max.   :50.00  
+##        E              A               N        
+##  Min.   :10.0   Min.   :10.00   Min.   :14.00  
+##  1st Qu.:19.0   1st Qu.:19.00   1st Qu.:26.00  
+##  Median :28.0   Median :27.00   Median :29.00  
+##  Mean   :29.2   Mean   :28.82   Mean   :29.61  
+##  3rd Qu.:39.0   3rd Qu.:39.00   3rd Qu.:33.00  
+##  Max.   :50.0   Max.   :50.00   Max.   :49.00
 ```

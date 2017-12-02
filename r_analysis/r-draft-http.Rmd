@@ -9,7 +9,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, cache = TRUE, size = "small")
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE, size = "small", message = FALSE, warning = FALSE)
 knitr::opts_knit$set(root.dir = "../")
 #rm(list = ls(all.names = TRUE))
 ```
@@ -21,12 +21,10 @@ library(knitr)
 library(tidyr)
 ```
 
-# Import dataset2
-  - http info
 
 ```{r}
 # http info (13.5 GB)
-http <- read.csv("dataset2/http_info.csv")
+http <- read.table("dataset2/http_info.csv", header = TRUE, sep = ",", as.is = TRUE)
 
 ```
 

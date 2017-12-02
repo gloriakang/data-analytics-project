@@ -9,7 +9,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, cache = TRUE, size = "small")
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE, size = "small", message = FALSE, warning = FALSE)
 knitr::opts_knit$set(root.dir = "../")
 #rm(list = ls(all.names = TRUE))
 ```
@@ -21,15 +21,13 @@ library(knitr)
 library(tidyr)
 ```
 
-# Import dataset2
-  - psychometric info
 
 ```{r}
 # psychometric info (43.6 KB)
-psychometric <- read.csv("dataset2/psychometric_info.csv")
+psychometric <- read.table("dataset2/psychometric_info.csv", header = TRUE, sep = ",", as.is = TRUE)
 ```
 
-## psychometric.csv (~ records)
+## psychometric_info (~ records)
 * Fields: employee_name, user_id, O, C, E, A, N
 * Big 5 psychometric score
 * OCEAN describes the Big-5 personality traits. You’ll want to examine extraneous materials to understand the significance of each personality type.

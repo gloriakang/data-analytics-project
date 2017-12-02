@@ -9,7 +9,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, cache = TRUE, size = "small")
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE, size = "small", message = FALSE, warning = FALSE)
 knitr::opts_knit$set(root.dir = "../")
 #rm(list = ls(all.names = TRUE))
 ```
@@ -21,15 +21,16 @@ library(knitr)
 library(tidyr)
 ```
 
-# Import dataset2
-  - device info
 
 ```{r}
 # device info (27.6 MB)
-device <- read.csv("dataset2/device_info.csv")
+device <- read.table("dataset2/device_info.csv", header = TRUE, sep = ",", as.is = TRUE)
+
+device$date <- strptime(device$date, "%m/%d/%Y %T")
+device$activity <- as.factor(device$activity)
 ```
 
-## device.csv (~405k records)
+## device_info (~405k records)
 * Fields: id, date, user, pc, activity (connect/disconnect)
 * Some users use a portable zip drive
 * Some connect(s) may be missing disconnect(s), since machine may be turned off without a proper disconnect. 
@@ -46,6 +47,20 @@ str(device)
 table(is.na(device))
 
 summary(device)
+```
 
+- Plots
+
+```{r}
+hist()
+```
+
+
+```{r}
+# plot
+#ggplot(device, aes(date, activity)) + 
+#  geom_point(size = 2.5, color="navy") + xlab(" ") + ylab(" ") + ggtitle(" ")
+
+#ggplot(device, aes(x, y )) + geom_bar(stat = "identity", color = "purple") +theme(axis.text.x = element_text(angle = 70, vjust = 0.5, color = "black"))  + ggtitle(" ") + theme_bw()
 ```
 

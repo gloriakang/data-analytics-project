@@ -9,7 +9,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, cache = TRUE, size = "small")
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE, size = "small", message = FALSE, warning = FALSE)
 knitr::opts_knit$set(root.dir = "../")
 #rm(list = ls(all.names = TRUE))
 ```
@@ -21,15 +21,15 @@ library(knitr)
 library(tidyr)
 ```
 
-# Import dataset2
-  - file info
 
 ```{r}
 # file info (184 MB)
-file <- read.csv("dataset2/file_info.csv")
+file <- read.table("dataset2/file_info.csv", header = TRUE, sep = ",", as.is = TRUE)
+
+file$date <- strptime(file$date, "%m/%d/%Y %T")
 ```
 
-## file.csv (~445k records)
+## file_info (~445k records)
 Fields: id, date, user, pc, filename, content
 * Each item represents an item copied to a thumb-drive
 * Files are summarized by keywords of the “content”

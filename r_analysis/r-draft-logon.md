@@ -13,26 +13,6 @@ output:
 
 ```r
 library(dplyr)
-```
-
-```
-## 
-## Attaching package: 'dplyr'
-```
-
-```
-## The following objects are masked from 'package:stats':
-## 
-##     filter, lag
-```
-
-```
-## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union
-```
-
-```r
 library(ggplot2)
 library(knitr)
 library(tidyr)
@@ -44,7 +24,10 @@ library(tidyr)
 
 ```r
 # logon info (55.8 MB)
-logon <- read.csv("dataset2/logon_info.csv")
+logon <- read.table("dataset2/logon_info.csv", header = TRUE, sep = ",", as.is = TRUE)
+
+logon$date <- strptime(logon$date, "%m/%d/%Y %T")
+logon$activity <- as.factor(logon$activity)
 ```
 
 ## logon.csv (~ records)
@@ -63,12 +46,12 @@ head(logon)
 
 ```
 ##                         id                date    user      pc activity
-## 1 {X1D9-S0ES98JV-5357PWMI} 01/02/2010 06:49:00 NGF0157 PC-6056    Logon
-## 2 {G2B3-L6EJ61GT-2222RKSO} 01/02/2010 06:50:00 LRR0148 PC-4275    Logon
-## 3 {U6Q3-U0WE70UA-3770UREL} 01/02/2010 06:53:04 LRR0148 PC-4124    Logon
-## 4 {I0N5-R7NA26TG-6263KNGM} 01/02/2010 07:00:00 IRM0931 PC-7188    Logon
-## 5 {D1S0-N6FH62BT-5398KANK} 01/02/2010 07:00:00 MOH0273 PC-6699    Logon
-## 6 {S6P1-M4MK04BB-0722IITW} 01/02/2010 07:07:00 LAP0338 PC-5758    Logon
+## 1 {X1D9-S0ES98JV-5357PWMI} 2010-01-02 06:49:00 NGF0157 PC-6056    Logon
+## 2 {G2B3-L6EJ61GT-2222RKSO} 2010-01-02 06:50:00 LRR0148 PC-4275    Logon
+## 3 {U6Q3-U0WE70UA-3770UREL} 2010-01-02 06:53:04 LRR0148 PC-4124    Logon
+## 4 {I0N5-R7NA26TG-6263KNGM} 2010-01-02 07:00:00 IRM0931 PC-7188    Logon
+## 5 {D1S0-N6FH62BT-5398KANK} 2010-01-02 07:00:00 MOH0273 PC-6699    Logon
+## 6 {S6P1-M4MK04BB-0722IITW} 2010-01-02 07:07:00 LAP0338 PC-5758    Logon
 ```
 
 ```r
@@ -85,10 +68,10 @@ str(logon)
 
 ```
 ## 'data.frame':	854859 obs. of  5 variables:
-##  $ id      : Factor w/ 854859 levels "{A0A0-C1MM33BW-3773CNHJ}",..: 760034 203902 679566 264281 104104 613516 415884 100469 195280 621498 ...
-##  $ date    : Factor w/ 338041 levels "01/01/2011 00:15:05",..: 111 112 113 114 114 115 116 116 117 118 ...
-##  $ user    : Factor w/ 1000 levels "AAE0190","AAF0535",..: 708 621 621 468 676 589 653 726 23 229 ...
-##  $ pc      : Factor w/ 1003 levels "PC-0004","PC-0008",..: 590 426 411 713 669 557 982 336 894 605 ...
+##  $ id      : chr  "{X1D9-S0ES98JV-5357PWMI}" "{G2B3-L6EJ61GT-2222RKSO}" "{U6Q3-U0WE70UA-3770UREL}" "{I0N5-R7NA26TG-6263KNGM}" ...
+##  $ date    : POSIXlt, format: "2010-01-02 06:49:00" "2010-01-02 06:50:00" ...
+##  $ user    : chr  "NGF0157" "LRR0148" "LRR0148" "IRM0931" ...
+##  $ pc      : chr  "PC-6056" "PC-4275" "PC-4124" "PC-7188" ...
 ##  $ activity: Factor w/ 2 levels "Logoff","Logon": 2 2 2 2 2 2 2 2 2 2 ...
 ```
 
@@ -108,20 +91,18 @@ summary(logon)
 ```
 
 ```
-##                         id                          date       
-##  {A0A0-C1MM33BW-3773CNHJ}:     1   01/05/2010 08:00:00:    61  
-##  {A0A0-E5EC85TY-7815ELYE}:     1   02/03/2010 08:00:00:    60  
-##  {A0A0-E8HT11XB-5139DZIV}:     1   02/24/2010 08:00:00:    57  
-##  {A0A0-G7HL70AA-4309NTST}:     1   07/19/2010 08:00:00:    57  
-##  {A0A0-H6GU35UA-4638RSVH}:     1   01/15/2010 08:00:00:    54  
-##  {A0A0-I7WT10IM-5351CZOJ}:     1   10/06/2010 08:00:00:    54  
-##  (Other)                 :854853   (Other)            :854516  
-##       user              pc           activity     
-##  WPR0368:  3470   PC-4124: 25514   Logoff:384268  
-##  AJF0370:  3267   PC-3847:  4264   Logon :470591  
-##  CBB0365:  3256   PC-0926:  1657                  
-##  BAL0044:  3146   PC-6184:  1640                  
-##  IBB0359:  3086   PC-0840:  1545                  
-##  LBC0356:  3053   PC-3819:  1509                  
-##  (Other):835581   (Other):818730
+##       id                 date                         user          
+##  Length:854859      Min.   :2010-01-02 06:49:00   Length:854859     
+##  Class :character   1st Qu.:2010-04-27 12:06:42   Class :character  
+##  Mode  :character   Median :2010-08-24 09:24:00   Mode  :character  
+##                     Mean   :2010-08-30 01:03:22                     
+##                     3rd Qu.:2011-01-03 07:41:00                     
+##                     Max.   :2011-05-17 06:43:35                     
+##       pc              activity     
+##  Length:854859      Logoff:384268  
+##  Class :character   Logon :470591  
+##  Mode  :character                  
+##                                    
+##                                    
+## 
 ```

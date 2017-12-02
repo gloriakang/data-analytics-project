@@ -122,16 +122,8 @@ $(document).ready(function () {
 </div>
 
 
-<pre class="r"><code>library(dplyr)</code></pre>
-<pre><code>## 
-## Attaching package: 'dplyr'</code></pre>
-<pre><code>## The following objects are masked from 'package:stats':
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from 'package:base':
-## 
-##     intersect, setdiff, setequal, union</code></pre>
-<pre class="r"><code>library(ggplot2)
+<pre class="r"><code>library(dplyr)
+library(ggplot2)
 library(knitr)
 library(tidyr)</code></pre>
 <div id="import-dataset2" class="section level1">
@@ -140,7 +132,10 @@ library(tidyr)</code></pre>
 <li>logon info</li>
 </ul>
 <pre class="r"><code># logon info (55.8 MB)
-logon &lt;- read.csv(&quot;dataset2/logon_info.csv&quot;)</code></pre>
+logon &lt;- read.table(&quot;dataset2/logon_info.csv&quot;, header = TRUE, sep = &quot;,&quot;, as.is = TRUE)
+
+logon$date &lt;- strptime(logon$date, &quot;%m/%d/%Y %T&quot;)
+logon$activity &lt;- as.factor(logon$activity)</code></pre>
 <div id="logon.csv-records" class="section level2">
 <h2>logon.csv (~ records)</h2>
 <ul>
@@ -153,20 +148,20 @@ logon &lt;- read.csv(&quot;dataset2/logon_info.csv&quot;)</code></pre>
 <pre class="r"><code># logon info
 head(logon)</code></pre>
 <pre><code>##                         id                date    user      pc activity
-## 1 {X1D9-S0ES98JV-5357PWMI} 01/02/2010 06:49:00 NGF0157 PC-6056    Logon
-## 2 {G2B3-L6EJ61GT-2222RKSO} 01/02/2010 06:50:00 LRR0148 PC-4275    Logon
-## 3 {U6Q3-U0WE70UA-3770UREL} 01/02/2010 06:53:04 LRR0148 PC-4124    Logon
-## 4 {I0N5-R7NA26TG-6263KNGM} 01/02/2010 07:00:00 IRM0931 PC-7188    Logon
-## 5 {D1S0-N6FH62BT-5398KANK} 01/02/2010 07:00:00 MOH0273 PC-6699    Logon
-## 6 {S6P1-M4MK04BB-0722IITW} 01/02/2010 07:07:00 LAP0338 PC-5758    Logon</code></pre>
+## 1 {X1D9-S0ES98JV-5357PWMI} 2010-01-02 06:49:00 NGF0157 PC-6056    Logon
+## 2 {G2B3-L6EJ61GT-2222RKSO} 2010-01-02 06:50:00 LRR0148 PC-4275    Logon
+## 3 {U6Q3-U0WE70UA-3770UREL} 2010-01-02 06:53:04 LRR0148 PC-4124    Logon
+## 4 {I0N5-R7NA26TG-6263KNGM} 2010-01-02 07:00:00 IRM0931 PC-7188    Logon
+## 5 {D1S0-N6FH62BT-5398KANK} 2010-01-02 07:00:00 MOH0273 PC-6699    Logon
+## 6 {S6P1-M4MK04BB-0722IITW} 2010-01-02 07:07:00 LAP0338 PC-5758    Logon</code></pre>
 <pre class="r"><code>dim(logon)</code></pre>
 <pre><code>## [1] 854859      5</code></pre>
 <pre class="r"><code>str(logon)</code></pre>
 <pre><code>## 'data.frame':    854859 obs. of  5 variables:
-##  $ id      : Factor w/ 854859 levels &quot;{A0A0-C1MM33BW-3773CNHJ}&quot;,..: 760034 203902 679566 264281 104104 613516 415884 100469 195280 621498 ...
-##  $ date    : Factor w/ 338041 levels &quot;01/01/2011 00:15:05&quot;,..: 111 112 113 114 114 115 116 116 117 118 ...
-##  $ user    : Factor w/ 1000 levels &quot;AAE0190&quot;,&quot;AAF0535&quot;,..: 708 621 621 468 676 589 653 726 23 229 ...
-##  $ pc      : Factor w/ 1003 levels &quot;PC-0004&quot;,&quot;PC-0008&quot;,..: 590 426 411 713 669 557 982 336 894 605 ...
+##  $ id      : chr  &quot;{X1D9-S0ES98JV-5357PWMI}&quot; &quot;{G2B3-L6EJ61GT-2222RKSO}&quot; &quot;{U6Q3-U0WE70UA-3770UREL}&quot; &quot;{I0N5-R7NA26TG-6263KNGM}&quot; ...
+##  $ date    : POSIXlt, format: &quot;2010-01-02 06:49:00&quot; &quot;2010-01-02 06:50:00&quot; ...
+##  $ user    : chr  &quot;NGF0157&quot; &quot;LRR0148&quot; &quot;LRR0148&quot; &quot;IRM0931&quot; ...
+##  $ pc      : chr  &quot;PC-6056&quot; &quot;PC-4275&quot; &quot;PC-4124&quot; &quot;PC-7188&quot; ...
 ##  $ activity: Factor w/ 2 levels &quot;Logoff&quot;,&quot;Logon&quot;: 2 2 2 2 2 2 2 2 2 2 ...</code></pre>
 <pre class="r"><code># check for missing values
 table(is.na(logon))</code></pre>
@@ -174,22 +169,20 @@ table(is.na(logon))</code></pre>
 ##   FALSE 
 ## 4274295</code></pre>
 <pre class="r"><code>summary(logon)</code></pre>
-<pre><code>##                         id                          date       
-##  {A0A0-C1MM33BW-3773CNHJ}:     1   01/05/2010 08:00:00:    61  
-##  {A0A0-E5EC85TY-7815ELYE}:     1   02/03/2010 08:00:00:    60  
-##  {A0A0-E8HT11XB-5139DZIV}:     1   02/24/2010 08:00:00:    57  
-##  {A0A0-G7HL70AA-4309NTST}:     1   07/19/2010 08:00:00:    57  
-##  {A0A0-H6GU35UA-4638RSVH}:     1   01/15/2010 08:00:00:    54  
-##  {A0A0-I7WT10IM-5351CZOJ}:     1   10/06/2010 08:00:00:    54  
-##  (Other)                 :854853   (Other)            :854516  
-##       user              pc           activity     
-##  WPR0368:  3470   PC-4124: 25514   Logoff:384268  
-##  AJF0370:  3267   PC-3847:  4264   Logon :470591  
-##  CBB0365:  3256   PC-0926:  1657                  
-##  BAL0044:  3146   PC-6184:  1640                  
-##  IBB0359:  3086   PC-0840:  1545                  
-##  LBC0356:  3053   PC-3819:  1509                  
-##  (Other):835581   (Other):818730</code></pre>
+<pre><code>##       id                 date                         user          
+##  Length:854859      Min.   :2010-01-02 06:49:00   Length:854859     
+##  Class :character   1st Qu.:2010-04-27 12:06:42   Class :character  
+##  Mode  :character   Median :2010-08-24 09:24:00   Mode  :character  
+##                     Mean   :2010-08-30 01:03:22                     
+##                     3rd Qu.:2011-01-03 07:41:00                     
+##                     Max.   :2011-05-17 06:43:35                     
+##       pc              activity     
+##  Length:854859      Logoff:384268  
+##  Class :character   Logon :470591  
+##  Mode  :character                  
+##                                    
+##                                    
+## </code></pre>
 </div>
 </div>
 

@@ -9,7 +9,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, cache = TRUE, size = "small")
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE, size = "small", message = FALSE, warning = FALSE)
 knitr::opts_knit$set(root.dir = "../")
 #rm(list = ls(all.names = TRUE))
 ```
@@ -21,15 +21,16 @@ library(knitr)
 library(tidyr)
 ```
 
-# Import dataset2
-  - logon info
 
 ```{r}
 # logon info (55.8 MB)
-logon <- read.csv("dataset2/logon_info.csv")
+logon <- read.table("dataset2/logon_info.csv", header = TRUE, sep = ",", as.is = TRUE)
+
+logon$date <- strptime(logon$date, "%m/%d/%Y %T")
+logon$activity <- as.factor(logon$activity)
 ```
 
-## logon.csv (~ records)
+## logon_info (~ records)
 * Fields: id, date, user, pc, activity (Logon/Logoff)
 * some logons have been removed from the dataset, to mimic a “messy” scenario
 * Each user has an assigned machine, but can share others

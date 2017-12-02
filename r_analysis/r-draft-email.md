@@ -18,16 +18,16 @@ library(knitr)
 library(tidyr)
 ```
 
-# Import dataset2
-  - email info
 
 
 ```r
 # email info (1.3 GB)
-email <- read.csv("dataset2/email_info.csv")
+email <- read.table("dataset2/email_info.csv", header = TRUE, sep = ",", as.is = TRUE)
+
+email$date <- strptime(email$date, "%m/%d/%Y %T")
 ```
 
-## email.csv (~2.6M records)
+## email_info (~2.6M records)
 * VERY IMPORTANT
 * Fields: id, date, user, pc, to, cc, bcc, from, size, attachment_count, content
 * Per usual, emails can have multiple recipients
@@ -44,12 +44,12 @@ head(email)
 
 ```
 ##                         id                date    user      pc
-## 1 {R3I7-S4TX96FG-8219JWFF} 01/02/2010 07:11:45 LAP0338 PC-5758
-## 2 {R0R9-E4GL59IK-2907OSWJ} 01/02/2010 07:12:16 MOH0273 PC-6699
-## 3 {G2B2-A8XY58CP-2847ZJZL} 01/02/2010 07:13:00 LAP0338 PC-5758
-## 4 {A3A9-F4TH89AA-8318GFGK} 01/02/2010 07:13:17 LAP0338 PC-5758
-## 5 {E8B7-C8FZ88UF-2946RUQQ} 01/02/2010 07:13:28 MOH0273 PC-6699
-## 6 {X8T7-A6BT54FP-7241DLBV} 01/02/2010 07:36:03 HVB0037 PC-7979
+## 1 {R3I7-S4TX96FG-8219JWFF} 2010-01-02 07:11:45 LAP0338 PC-5758
+## 2 {R0R9-E4GL59IK-2907OSWJ} 2010-01-02 07:12:16 MOH0273 PC-6699
+## 3 {G2B2-A8XY58CP-2847ZJZL} 2010-01-02 07:13:00 LAP0338 PC-5758
+## 4 {A3A9-F4TH89AA-8318GFGK} 2010-01-02 07:13:17 LAP0338 PC-5758
+## 5 {E8B7-C8FZ88UF-2946RUQQ} 2010-01-02 07:13:28 MOH0273 PC-6699
+## 6 {X8T7-A6BT54FP-7241DLBV} 2010-01-02 07:36:03 HVB0037 PC-7979
 ##                                                                     to
 ## 1           Dean.Flynn.Hines@dtaa.com;Wade_Harrison@lockheedmartin.com
 ## 2                                          Odonnell-Gage@bellsouth.net
@@ -94,17 +94,17 @@ str(email)
 
 ```
 ## 'data.frame':	2629979 obs. of  11 variables:
-##  $ id         : Factor w/ 2629979 levels "{A0A0-A1LB18AQ-7995CBDH}",..: 1754199 1727060 628227 30686 486952 2415839 762753 402629 2159974 358695 ...
-##  $ date       : Factor w/ 2384107 levels "01/01/2011 07:06:06",..: 313 314 315 316 317 318 319 320 321 322 ...
-##  $ user       : Factor w/ 1000 levels "AAE0190","AAF0535",..: 589 676 589 589 676 432 733 621 621 621 ...
-##  $ pc         : Factor w/ 1000 levels "PC-0004","PC-0008",..: 554 666 554 554 666 789 828 424 424 424 ...
-##  $ to         : Factor w/ 659170 levels "AAC456@harris.com",..: 161599 480749 494443 340419 78033 226425 272042 198665 116010 230881 ...
-##  $ cc         : Factor w/ 150742 levels "","AAC456@harris.com",..: 103670 1 1 1 1 63028 107648 1 1 149926 ...
-##  $ bcc        : Factor w/ 615 levels "","Abbott-Herman@yahoo.com",..: 1 1 1 1 445 1 1 1 1 1 ...
-##  $ from       : Factor w/ 2678 levels "AAN2553@aol.com",..: 1639 1815 1640 1640 1815 1139 1949 1569 1569 1569 ...
+##  $ id         : chr  "{R3I7-S4TX96FG-8219JWFF}" "{R0R9-E4GL59IK-2907OSWJ}" "{G2B2-A8XY58CP-2847ZJZL}" "{A3A9-F4TH89AA-8318GFGK}" ...
+##  $ date       : POSIXlt, format: "2010-01-02 07:11:45" "2010-01-02 07:12:16" ...
+##  $ user       : chr  "LAP0338" "MOH0273" "LAP0338" "LAP0338" ...
+##  $ pc         : chr  "PC-5758" "PC-6699" "PC-5758" "PC-5758" ...
+##  $ to         : chr  "Dean.Flynn.Hines@dtaa.com;Wade_Harrison@lockheedmartin.com" "Odonnell-Gage@bellsouth.net" "Penelope_Colon@netzero.com" "Judith_Hayden@comcast.net" ...
+##  $ cc         : chr  "Nathaniel.Hunter.Heath@dtaa.com" "" "" "" ...
+##  $ bcc        : chr  "" "" "" "" ...
+##  $ from       : chr  "Lynn.Adena.Pratt@dtaa.com" "MOH68@optonline.net" "Lynn_A_Pratt@earthlink.net" "Lynn_A_Pratt@earthlink.net" ...
 ##  $ size       : int  25830 29942 28780 21907 17319 44345 35328 25255 33967 19456 ...
 ##  $ attachments: int  0 0 0 0 0 0 0 1 0 1 ...
-##  $ content    : Factor w/ 2629964 levels "00006 dates per lineage seen kilograms carl interchange growls stories silent monogamous controlled he jaguarundi sets salvador"| __truncated__,..: 1478199 2334543 2162913 106595 2363569 1381754 2250323 1342095 1932746 2164656 ...
+##  $ content    : chr  "middle f2 systems 4 july techniques powerful destroyed who larger speeds plains part paul hold like followed over decrease actu"| __truncated__ "the breaking called allied reservations former further victories casualties one 18 douglas well sea until difficulty slopes coa"| __truncated__ "slowly this uncinus winter beneath addition exist powered circumhorizontal contain one seasonally off glenn make addition lower"| __truncated__ "400 other difficult land cirrocumulus powered probably especially for 37 humidity take conditions has gas bearing word cirrocum"| __truncated__ ...
 ```
 
 ```r
@@ -123,69 +123,33 @@ summary(email)
 ```
 
 ```
-##                         id                           date        
-##  {A0A0-A1LB18AQ-7995CBDH}:      1   02/16/2010 15:28:59:     18  
-##  {A0A0-A4LN60BU-2632YIYQ}:      1   11/29/2010 15:57:52:     16  
-##  {A0A0-A4WE63BA-3556WQVD}:      1   01/06/2011 15:31:21:     15  
-##  {A0A0-A9ZJ14CF-0543QFNK}:      1   01/11/2011 12:40:41:     15  
-##  {A0A0-B0FH86WV-2533YVSB}:      1   04/14/2010 17:52:59:     15  
-##  {A0A0-C1DI38IK-3575OLRQ}:      1   01/19/2010 13:04:30:     14  
-##  (Other)                 :2629973   (Other)            :2629886  
-##       user               pc         
-##  MSS0001:  12034   PC-3952:  12034  
-##  KBP0008:   9145   PC-3851:   9145  
-##  HTH0007:   9116   PC-8851:   9116  
-##  HCS0003:   9097   PC-3054:   9097  
-##  KWC0004:   8997   PC-2017:   8997  
-##  TVS0006:   8994   PC-5873:   8994  
-##  (Other):2572596   (Other):2572596  
-##                                 to         
-##  Halla.Cathleen.Simmons@dtaa.com :   3064  
-##  Hyatt.Trevor.Hayes@dtaa.com     :   2861  
-##  Byron.Tyrone.Williamson@dtaa.com:   2797  
-##  Kirby.Bo.Pollard@dtaa.com       :   2715  
-##  Bethany.Xerxes.Johnson@dtaa.com :   2608  
-##  Winter.Veda.Burks@dtaa.com      :   2441  
-##  (Other)                         :2613493  
-##                                   cc         
-##                                    :1617054  
-##  Winter.Veda.Burks@dtaa.com        :   4342  
-##  Gage.Kaden.Odonnell@dtaa.com      :   3876  
-##  Lysandra.Chastity.Brennan@dtaa.com:   3214  
-##  Odonnell-Gage@bellsouth.net       :   2934  
-##  Hashim.Damon.Dudley@dtaa.com      :   2808  
-##  (Other)                           : 995751  
-##                                  bcc         
-##                                    :2212977  
-##  Winter.Veda.Burks@dtaa.com        :   5037  
-##  Gage.Kaden.Odonnell@dtaa.com      :   4872  
-##  Lysandra.Chastity.Brennan@dtaa.com:   3599  
-##  Kirby.Bo.Pollard@dtaa.com         :   3496  
-##  Hadassah.Riley.Baker@dtaa.com     :   3365  
-##  (Other)                           : 396633  
-##                                from              size       
-##  Mona.Susan.Shannon@dtaa.com     :   6317   Min.   :  6182  
-##  Thomas.Vladimir.Stokes@dtaa.com :   5944   1st Qu.: 22859  
-##  Mona_Shannon@verizon.net        :   5717   Median : 28455  
-##  Hyatt.Trevor.Hayes@dtaa.com     :   5710   Mean   : 29992  
-##  Nichole.Azalia.Frye@dtaa.com    :   5444   3rd Qu.: 35418  
-##  Byron.Tyrone.Williamson@dtaa.com:   5102   Max.   :141909  
-##  (Other)                         :2595745                   
-##   attachments    
-##  Min.   :0.0000  
-##  1st Qu.:0.0000  
-##  Median :0.0000  
-##  Mean   :0.4036  
-##  3rd Qu.:0.0000  
-##  Max.   :9.0000  
-##                  
-##                                                                                                                                                                                                                                    content       
-##  prince prince prince ankh prince prince prince prince prince prince prince prince prince prince prince prince prince prince prince                                                                                                    :      2  
-##  prince prince prince prince prince prince prince prince prince prince ahmose prince prince prince prince prince prince prince prince prince prince prince                                                                             :      2  
-##  prince prince prince prince prince prince prince prince prince prince prince prince                                                                                                                                                   :      2  
-##  prince prince prince prince prince prince prince prince prince prince prince prince prince ahmose prince prince prince prince prince prince prince prince prince prince prince prince prince prince ahmose prince prince prince prince:      2  
-##  prince prince prince prince prince prince prince prince prince prince prince prince prince prince prince prince ahmose prince prince prince prince prince prince prince                                                               :      2  
-##  prince prince prince prince prince prince prince prince prince prince prince prince prince prince prince prince prince ahmose prince prince prince prince prince prince prince prince ahmose ahmose prince prince                     :      2  
-##  (Other)                                                                                                                                                                                                                               :2629967
+##       id                 date                         user          
+##  Length:2629979     Min.   :2010-01-02 07:11:45   Length:2629979    
+##  Class :character   1st Qu.:2010-04-28 14:48:28   Class :character  
+##  Mode  :character   Median :2010-08-26 12:13:24   Mode  :character  
+##                     Mean   :2010-08-31 22:13:07                     
+##                     3rd Qu.:2011-01-04 16:17:05                     
+##                     Max.   :2011-05-16 21:16:26                     
+##       pc                 to                 cc           
+##  Length:2629979     Length:2629979     Length:2629979    
+##  Class :character   Class :character   Class :character  
+##  Mode  :character   Mode  :character   Mode  :character  
+##                                                          
+##                                                          
+##                                                          
+##      bcc                from                size         attachments    
+##  Length:2629979     Length:2629979     Min.   :  6182   Min.   :0.0000  
+##  Class :character   Class :character   1st Qu.: 22859   1st Qu.:0.0000  
+##  Mode  :character   Mode  :character   Median : 28455   Median :0.0000  
+##                                        Mean   : 29992   Mean   :0.4036  
+##                                        3rd Qu.: 35418   3rd Qu.:0.0000  
+##                                        Max.   :141909   Max.   :9.0000  
+##    content         
+##  Length:2629979    
+##  Class :character  
+##  Mode  :character  
+##                    
+##                    
+## 
 ```
 

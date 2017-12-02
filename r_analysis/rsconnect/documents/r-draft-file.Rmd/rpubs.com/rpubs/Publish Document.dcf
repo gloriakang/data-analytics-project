@@ -1,0 +1,7 @@
+name: Publish Document
+account: rpubs
+server: rpubs.com
+appId: https://api.rpubs.com/api/v1/document/336581/9dc5eedcb32547a78fdc14f7f6125993
+bundleId: https://api.rpubs.com/api/v1/document/336581/9dc5eedcb32547a78fdc14f7f6125993
+url: http://rpubs.com/gkang/336581/edit
+when: 1512203497.93256
